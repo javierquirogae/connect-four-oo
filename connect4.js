@@ -70,6 +70,7 @@
     for (let y = this.height - 1; y >= 0; y--) {
       if (!this.board[y][x]) {
         console.log(x,y);
+        
         return y;
       }
     }
@@ -81,9 +82,9 @@
   placeInTable(y, x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
-    piece.style.backgroundColor = this.currPlayer.color;
+    piece.style.backgroundColor = this.currPlayer;
     piece.style.top = -50 * (y + 2);
-
+    
     const spot = document.getElementById(`${y}-${x}`);
     spot.append(piece);
   }
@@ -105,13 +106,14 @@
     // get next spot in column (if none, ignore click)
     const y = this.findSpotForCol(x);
     if (y === null) {
+      
       return;
     }
 
     // place piece in board and add to HTML table
     this.board[y][x] = this.currPlayer;
     this.placeInTable(y, x);
-
+    console.log(...this.board[y]);
     // check for tie
     if (this.board.every(row => row.every(cell => cell))) {
       return this.endGame('Tie!');
@@ -120,7 +122,7 @@
     // check for win
     if (this.checkForWin()) {
       this.gameOver = true;
-      return this.endGame(`The ${this.currPlayer.color} player won!`);
+      return this.endGame(`The ${this.currPlayer} player won!`);
     }
 
     // switch players
