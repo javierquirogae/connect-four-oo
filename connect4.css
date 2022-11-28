@@ -26,3 +26,6 @@
 #column-top td:hover {
   background-color: gold;
 }
+.winning_cell{
+  background-color: black;
+}
